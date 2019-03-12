@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ETL</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="../script/script.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-menu-color" style="text-align: center;">
+	    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+	    <div class="theTitle"><a href="index.html">ETL</a></div>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+	        <ul class="navbar-nav">
+	        	 <li class="nav-item">
+	            	<a class="nav-link" href="proposal.html">Proposal</a>
+	            </li>
+	            <li class="nav-item active">
+	            	<a class="nav-link" href="report.html">Report</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="plots.html">Plots</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="data.html">Data</a>
+	            </li>   
+	        </ul>
+	    </div>
+	</nav>
+
+
+	<div class="container">
+		<div class="pageTitle">
+			<h2>Report</h2>
+		</div>
+			
+	
+<h2>The Canadian Landscape For Data Science Careers, January 2019</h2>
+<h4>Execution Plan</h4>
+<img src="../images/appendixAnew.png" alt="" style="max-width: 100%">
+
+<h4>Methods</h4>
+
+<p>Using the ETL processes, the following tasks were done:</p>
+<ul>
+    <li>Extraction of the Data Science positions and salaries from job search websites</li>
+    <li>Extraction of the Cost of Living information for Canadian cities from Numbeo website</li>
+    <li>Extraction of the population information for Canadian locations from Statistics Canada website</li>
+    <li>Transformation of the Data Science positions data focusing on locations and salary into a dataframe</li>
+    <li>Amalgamation and transformation of the Cost of Living and population data into a dataframe based on Canadian Locations and their provinces/territories.</li>
+    <li>Transformation Cost of Living and population dataframe to produce a dataframe of aggregated data for each province/territory.</li>
+    <li>The Load of all dataframes into a SQL database</li>
+    <li>The use of matplotlib for visualization of the relationship between Data Science open positions, their locations, and their related cost of living and population information, through database queries</li>
+</ul>
+<p>The methods are described in greater detail below:</p>
+
+
+
+
+   
+<h4>Extraction &amp; Transformation of Data Science Jobs, and Salaries</h4>
+<p><b>Jobs:</b>The jobs listings were scraped from indeed.ca by searching for 'Data Analyst', 'Data Engineer', and 'Data Scientist' jobs in Canada. A multi-nested loop was created in Python that would extract city, company, job link, job title, location, salary, and company from the most recent 10 pages of listings for each or the three job titles. The script would detect whether the job title contained Analyst, Engineer, Scientist, or non of the above and assign the listing with one of four jobIDs. The script also split location into city and province and created new columns for each. Becuase the postings are dependent on users generating the content, the script had to handle for errors, such as filling location in as Canada rather than city and province, and placing job titles in multiple areas of the post. Variables were set and objects creted inside the loop and appended to an array of job postings outside the loop. Once the job list was created, it was able to be turned into a pandas dataframe for further munging and clean up.</p>
+
+<p><b>Salaries:</b>The salaries for Data Science jobs were obtained by scraping the website indeed.ca/salaries. A loop was constructed to query the website by modifying the url itself, and if a results table was detected, the loop would then scrape all available data from the table using beautiful soup, and continue to the next page of results as long as a &lt;span&gt; tag with a class (&ldquo;cmp-pagination-link&rdquo;) existed. Once results were gathered for all three data science jobs in all provinces, the loop ended and the results were parsed into separate lists for province, job id, job title, salary and a salary classifier (per month, per year etc.). The lists were then used to create a temporary dataframe, which adjusted the salary column to ensure all rows yielded a &lsquo;per/year&rsquo; value. The final dataframe then dropped the classifier column, and was exported for loading subsequent analyses.</p>
+
+
+<h4>Extraction &amp; Transformation of Location Data</h4>
+
+<p>Whereas career opportunities in the Data Science field is key driver for this project, we also needed to gather the quality of life and population data to assess the locations of these opportunities.  The Numbeo website provides information for many cities around the world regarding the cost of living and the quality of life.  Because the locations are world-wide, most of the Canadian cities did not have the province that they were located in.</p>
+<p>The Statistics Canada website was a great resource to determine the provinces for each of the city information provided by Numbeo.  Using the 2016 Census, Population and Dwelling Count Highlight Tables, found in the Statistics Canada website, the city names, their provinces, and associated population and dwelling data provided the opportunity to associate cities found in Numbeo with their provinces, but also gave the added dimension of providing population numbers to normalize Numbeo data.</p>
+<p>Both sources of data were collected into two dataframes, one based on cities that included cost of living & quality of life indices, and population and dwelling counts, and based on provinces using aggregated measurements of the cities.  Both dataframes were then exported as csv files to be used to load the My SQL database used for this project.
+</p>
+
+<h4>Extraction &amp; Transformation of Cost of Living Data from Numbeo</h4>
+<p>The Numbeo website provided Cost of Living, Property Prices, Crime, Health Care, Pollution, Quality of Life, and Travel data for locations around the world.  The website provides the means of entering and selecting world cities and displaying their related data above.  Fortunately, Numbeo also provides API functionality if you have been approved and provided an API key.  The project team requested an API-Key for education purposes (free) which was granted and provided the next day.</p>
+<p>Extraction first occurred with getting all cities in Numbeo using the following url query:</p>
+<p>https://www.numbeo.com/api/cities?api_key=[API_KEY]</p>
+<p>The response included a list of cities with a Numbeo city_id as a unique identifier, city name, country name, longitude, and latitude coordinates.  A dataframe was created based on filtering the response for only rows with the country name of ‘Canada’.  The city names provided by Numbeo were not entirely clean as a very small percentage included province codes within the name.  Python was used to split city name to move the province code if it existed to another column.  The script was also adjusted to change Numbeo city names to exactly match the city names listed in the Stats Canada data.</p>
+
+<h4>Extraction &amp; Transformation of Popuation Data from Stats Canada</h4>
+<p>Statistics Canada provides a publicly available csv file with the Population and Dwelling Count Highlight Tables from the 2016 Census.  This csv file, located in the repository folder 1_Input as T301EN.CSV can be downloaded at the following url:</p>
+<p>https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/hlt-fst/pd-pl/Table.cfm?Lang=Eng&T=301&S=3&O=D</p>
+<p>This csv file was extracted as a dataframe and revised to only include population, number of private dwellings, land area (sq. km), population density per sq. km for each location regardless of location type (village, town, city, township, etc.).  All other columns, including French equivalent columns were removed from the dataframe.</p>
+
+<h4>Merging of Cost of Living Population Data based on Canadian Location</h4>
+<p>Using the Canadian cities dataframe extracted from Numbeo (see Subsection 2.2.1 above) and the Stats Canada dataframe, both dataframes were left-merged based on the city / location name.  This led to the dropping of any Canadian locations from Statistics Canada data which were not found in the Numbeo list of Canadian Cities.</p>
+<p>This also led to the discovery that multiple rows were created because the city name listed from Numbeo had multiple listings in the Stats Canada data.  For example, the name Beaumont are found in Alberta, Newfoundland, and Quebec.  Other discrepancies included Minden being listed as Minden Hills in Numbeo, but as Minden in Statistics Canada.  And some names existed in the same province as both a Town and a Township.  The other issue was the discovery that Numbeo listings were not finding an equivalent location in Statistics Canada data because of accents, this included well known cities as Montreal.  These discrepancies were manually identified, with the purpose of including the correct corresponding Statistics Canada data using the latitude and longitude provided by Numbeo to ensure each row had the correct province assigned.</p>
+<p>Additional python code was added to correct these discrepancies for either tables, whether it was to change the name to remove accents or remove spelling discrepancies, and the merge was executed again.
+After this left merge, the combined dataframe still had Numbeo rows with no corresponding Statistics Canada data.  Code was then used to assign the provincial code based on the previous manual look up of the geographic coordinates.</p>
+
+<h4>Extraction & Transformation of Cost of Living of Numbeo Locations</h4>
+<p>Using the combined dataframe, a loop was used to query Numbeo to get the Cost of Living Data using the Numbeo City ID.  The following query was used:</p>
+<p>https://www.numbeo.com/api/city_prices?api_key=[API-KEY]&city_id=[CITY_ID]</p>
+<p>From the response, the following data was extracted for each city:</p>
+<ul>
+	<li>Monthly rent for 3-bedroom apartment in the city centre</li>
+	<li>Property price per square feet</li>
+	<li>Average monthly net salary</li>
+</ul>
+
+<p>These values were added as columns to the combined dataframe.</p>
+<p>To include the Cost of Living Index and the Quality of Life Index to these locations, another loop was executed for each row that queried the database based on the city_id:</p>
+<p>https://www.numbeo.com/api/indices?api_key=[API-KEY]&city_id=[CITY_ID]</p>
+<p>From the response, the following data was extracted for each city:</p>
+<ul>
+	<li>Cost of Living Index</li>
+	<li>Quality of Life Index</li>
+</ul>
+
+
+
+
+<h4>Final Transformation and Loading of Data to SQL Database</h4>
+<p>Before loading data into SQL, the extracted inputs needed to be transformed relative to each other to ensure clean data is loaded. The file used to do the final transformation and load into SQL is &lsquo;Transform_IntoSQL.jpynb&rsquo;.</p>
+<p>The extracted inputs to this file are as follows:</p>
+<ul>
+    <li>ca scrape for salaries of Data Analyst, Data Scientist, Data Engineer by province in csv form (Salary_extracted_input.csv).</li>
+    <li>ca scrape for job postings for Data Analyst, Data Engineer, Data Scientist positions in Canada is csv form (Job_Posting_extracted_input.csv)</li>
+    <li>Canadian city information from Stats Canada API and Numbeo API in csv form (complete_city_df.csv)</li>
+    <li>Canadian province information from Stats Canada API and Numbeo API in csv form (province_df.csv)</li>
+</ul>
+<p>The purpose of this section of the project is to create 5 clean tables that are interlinked and loaded onto MySQL. The 5 tables are: Job_Class, Jobs, Cities, Provinces, Salaries.</p>
+
+<h4>Job_Class Table</h4>
+
+<p>The job_Class table was a manually made dataframe to assign a Class_ID (eventually will act as primary key in SQL) to Data Analyst, Data Engineer, and Data Scientist. We included an Other job_Class because the job posting scrap yielded job titles other than Data Analyst, Data Engineer, and Data Scientist, and we did not want to discard them as they had &lsquo;Data&rsquo; in the job title.</p>
+
+<h4>Provinces Table</h4>
+
+<p>The base of the provinces table was made from a pd.read_html scrape of the Wikipedia page for Canadian provinces. It was merged with the province_df.csv on the province abbreviation. Each province was given a province_ID that will act as a primary key in SQL. &lsquo;Other&rsquo; was also included in the provinces table because some of the cities yielded from the job postings scrape of indeed.ca could not be matched to city on the city table and therefore could not be matched to a province.</p>
+
+<h4>Salaries Table</h4>
+
+<p>The salaries table needed to be merged with the job_Class Table and Province Table. Prior to the merges, the provinces column of the raw salaries table (from the Salary_extracted_input.csv) needed to be match the provinces column of the provinces table in terms of string. The python library &lsquo;fuzzy wuzzy&rsquo; (string matching library) was used to accomplish this.</p>
+
+<h4>Cities Table</h4>
+
+<p>The raw city table (from complete_city_df.csv) needed to be merged with the provinces table. Prior to merging, an &lsquo;Other&rsquo; city needed to be created with &lsquo;Other&rsquo; as the province because the jobs table included cities that are not in the city table that will be categories under &lsquo;Other&rsquo;. A unique city_ID is assigned to all the cities in the city table (to act as the primary key in SQL).</p>
+
+<h4>Jobs Table</h4>
+
+<p>The raw data of the jobs table (Job_Posting_extracted_input.csv) included columns city, company, job title, province, and summary. This table needed to be merged with the job_class table, provinces table, and city table. Prior to the merges, several steps had to be performed to ensure clean merges:</p>
+<ul>
+    <li>Python library unidecode was used on the city column to remove any accents from the French cities (as the city table did not include city names with accents).</li>
+    <li>A list of cities that were in the jobs table but not in the city table were generated. The python library &lsquo;fuzzy wuzzy&rsquo; with a score cutoff (80) was used to determine any semantic differences (e.g. Toronto vs. Greater Toronto Area, St. Catherines vs. St. Catharines, Saanich vs. North Saanich). Cities in the jobs table identified to have minor semantic differences to cities in the cities table were changed. All remaining cities in the jobs table that were not in the cities table were categoried under &lsquo;Other&rsquo;.</li>
+    <li>The provinces in the jobs table were also corrected with fuzzy wuzzy as mentioned before.</li>
+</ul>
+
+
+<h4>Load onto SQL</h4>
+
+<p>The final dataframes for the job_Class, provinces, cities, salaries, and jobs were loaded onto SQL through python by creating an engine and using the pd.to_sql method. Primary keys were set using the engine.execute method where the SQL query 'ALTER TABLE `table name` ADD PRIMARY KEY (`column name`);' was called.</p>
+
+
+<h4>Final Database</h4>
+
+<p>Figure 1 below shows the final database loaded into MySQL. The black lines denote the connections between the tables (i.e. similar to foreign keys).</p>
+
+<div>
+	<img src="../images/tablesPic.png" alt="" style="max-width:750px">
+	<p><small>Figure 1: Project ETL Data Model</small></p>
+</div>
+
+
+<h4>Findings</h4>
+
+<p>The following data relationships were explored:</p>
+<ul>
+    <li>The Distribution of Data Science Jobs Across Canada</li>
+    <li>The Comparison of Data Science Average Salaries Across Canada</li>
+    <li>The Top 5 Cities with the most Data Science Job Opportunites</li>
+    <li>The Top 5 Cities with the most Earning Power for Data Science Jobs</li>
+</ul>
+<p>Visualization of these relationships will show the locations in Canada where people desiring a Data Science career will have the best opportunities to not only find a job, but to have a higher quality of life.</p>
+<h4>Job Distribution Across Canada</h4>
+<p>All job data were aggregated based on province where they are located, and job class:  Data Analyst, Data Engineer, Data Scientist, and Other.  The following bar graph displays the number of postings for each job class in each of the provinces.  The Cost of Living and Quality of Life indices are overlayed to show each province.</p>
+<img src="../images/Data_science_job_distribution_qoi.jpeg" alt="" style="max-width: 100%">
+<p><small>Figure 2: Distribution of Data Science Jobs Across Canada</small></p>
+<p>Ontario, Quebec, and British Columbia (BC) appear to have the highest variety of data science jobs available in the country. In fact, three of these provinces account for &asymp; 90% of the data science jobs in the country. However, when adjusted for population, an interesting pattern emerges. Ontario and BC have nearly the same amount of data science jobs per 100,000 people, while Quebec falls quite a bit shorter. This may suggest that competition in Quebec will be considerably higher than in Ontario and BC.&nbsp;</p>
+<p>Interestingly, Alberta, PEI and Sasketchwan all have data science opportunities that are in line with Ontario and BC, however given their slightly higher cost of living index, the salary attained in these provinces should be considerably higher in order to convince an individual to forego pursuing opportunities in Ontario, BC, and Quebec, where the cost of living index is quite a bit lower, presumably because these provinces tend to pay higher salaries than the national average. However, it should be noted that PEI has one of the highest quality of life scores across the country, making it a very viable option.</p>
+
+<h4>Average Salaries Across Canada</h4>
+<p>The average salaries for the different job classes in Data Science were aggregated based on province.  The following bar graph displays average salaries of those job classes along with a data line plotting the average salaries of each province calculated from the Statistics Canada data</p>
+<img src="../images/Data_science_salary_distribution.jpeg" alt="" style="max-width: 100%">
+<p><small>Figure 3: Average Annual Salary of Data Science Positions vs. the Annual Salary by Province</small></p>
+<p>From Figure 3, the average annual salaries for Data Science positions are greater than the average annual salary of other positions across all provinces.  Salary comparison of these Data Science postings show that data engineers command the highest average salary, while the data analysts earn the lowest.</p>
+<p>Provincially, the earning power for data engineers in Quebec earn more than four times the Quebec provincial average.  In fact, job postings for data engineers are the highest nationally in a province with the lowest provincial average salary.  Posting for data engineers in BC are equivalent to three times the provincial average salary.</p>
+<p>The salary of data scientist positions are very similar across all provinces, with the highest in BC followed closely by Ontario.</p>
+<p>Similarly, the data analysts also have very similar salaries across the provinces, with the highest salaries offered in Alberta and Saskatchewan.</p>
+
+<h4>Conclusions</h4>
+<p>Based on the findings the following can be asserted:</p>
+<ul>
+	<li>The demand for data analysts (in comparison to the provincial population) is highest in the Yukon Territories. There is no corresponding Cost of Living and Quality of Life indices to evaluate location for that demand.</li>
+	<li>The demand for data engineers (in comparison to the provincial population) is highest in the Northwest Territories. Unfortunately, the Cost of Living index is the highest in that territory.</li>
+	<li>Ontario has the highest demand for data scientists (in comparison to the provincial population). The province has Cost of Living and Quality of Life indices that are midway in comparison to the rest of Canada</li>
+	<li>Ontario, Quebec, and British Columbia (BC) appear to have the highest variety of Data Science jobs available in the country. In fact, three of these provinces account for ≈ 90% of the Data Science jobs in the country. However, when adjusted for population, an interesting pattern emerges. Ontario and BC have nearly the same amount of Data Science jobs per 100,000 people, while Quebec falls quite a bit shorter. This may suggest that competition in Quebec will be considerably higher than in Ontario and BC.</li>
+	<li>Interestingly, Alberta, PEI and Sasketchwan all have Data Science opportunities that are in line with Ontario and BC, however given their slightly higher cost of living index, the salary attained in these provinces should be considerably higher in order to convince an individual to forego pursuing opportunities in Ontario, BC, and Quebec, where the cost of living index is quite a bit lower, presumably because these provinces tend to pay higher salaries than the national average. However, it should be noted that PEI has one of the highest quality of life scores across the country, making it a very viable option.</li>
+	<li>The average annual salaries for Data Science positions are greater than the average annual salary of other positions across all provinces.</li>
+	<li>Salary comparison of these Data Science postings show that data engineers command the highest average salary, while the data analysts earn the lowest.</li>
+	<li>Provincially, the earning power for data engineers in Quebec earn more than four times the Quebec provincial average.  In fact, job postings for data engineers are the highest nationally in a province with the lowest provincial average salary.</li>
+	<li>Salaries offered in postings for data engineers in BC are equivalent to three times the provincial average salary.</li>
+	<li>The average salary of data scientist positions is very similar across all provinces, with the highest in BC followed closely by Ontario.</li>
+	<li>Similarly, the data analysts also have very similar salaries across the provinces, with the highest salaries offered in Alberta and Saskatchewan.</li>
+</ul>
+<p>With job postings offering the highest salaries, in a province with lower Cost of Living and an average Quality of Life, the best opportunities would be in Quebec.</p>
+
+
+<h4>Discussion</h4>
+
+<p>The following are items and issues that were encountered during this project, and should be further discussed to provide insight on the observations and conclusions.</p>
+
+<h4>Issues with Job data</h4>
+<p>The original plan was to include job listings from the job search websites of Indeed and Glassdoor.  Unfortunately, Glassdoor could not be used as one of the sources.  And because of time, no other source was used.</p>
+<p>Additional sources would increase the sample size to strengthen the validity of any conclusions.</p>
+
+<h4>Incompleteness of Numbeo Data</h4>
+<p>The Numbeo website provides a lot of different information about cities around the world.  Unfortunately not all cities have all the measurements that Numbeo provides.  The Quality of Life index and the Cost of Living Index was not available for most of the Canadian cities listed in the Numbeo website.  There were jobs in locations that did not have any Numbeo metrics, as there were Numbeo cities that may not have any Data Science job postings.</p>
+<p>By aggregating the data, we had hoped to get some correlation between job opportunities and Cost of Living and Quality of Life indices.  The issue that is apparent is that Canadian provinces have varied measurements in different locations.  Larger cities may be more expensive to live, but may not reflect life in rural areas.  The number of data points used in aggregation may be too small to realistically describe the cost of living at a provincial level.</p>
+
+<h4>Issues regarding correlating data from different sources</h4>
+
+<p>The most time-consuming issue was correlating data from different sources quickly and effortlessly.  Canada is a country with two official languages, and names may include accents and characters that may not be reflected in the names used by various sources.</p>
+<p>As well, there are names of locations that are found in different provinces, and even two locations in the same province.  Beaumont is found in 3 different provinces.  If Numbeo had data for Beaumont, Canada, which of the 3 locations does it belong to?  There are some names that may be found as both a Township and a Village in the same province.  Luckily Numbeo provided geographical coordinates for their locations.  Some Numbeo cities had different names than what the geographic coordinates would determine (example Cooksville and Mississauga).  With the expected aggregation of data it was important to ensure that the province was added for the Numbeo locations.</p>
+<p>Merging of the dataframes would result in multiple lines being created for the same location name.  A manual cleaning process was required to ensure the cleanest merge.
+Unfortunately, the process of cleaning the data before merging was  was time consuming, looking through hundreds of rows, determining which data source had the issue during the merge, the data source name to ensure we get sources properly merged for complete data, and then using geographic lookup website to determine the provincial codes for the dozens of Numbeo data rows that didn’t’ have a matching name in the Statistics Canada data.</p>
+<p>Perhaps if these issues were identified early in the process, an automated cleaning and geographic lookup process could be built.  But it was difficult to determine if the time to build and debug this automated process would be shorter than just manually identifying the issues individually and adding code to correct the offending values.</p>
+<p>Ultimately, this cleaning process took time away from meaningful analysis.</p>
+
+<h4>Appendix A: Script Execution Plan</h4>
+<p>The following are the script designs of the three scripts used in the performance testing.&nbsp; This provides a clear understanding of the steps used when recording the script, the data selected during recording, the variable names used, data preparation instructions, and the LoadRunner transaction names and the functional steps they comprise.</p>
+<p>The first script could not be recorded as a LoadRunner script, but the script design document provided clear instructions on how to manually execute the functionality.</p>
+
+<img src="../images/appendixAnew.png" alt="" style="max-width: 100%">
+
+<div class="appendixB">
+<h4>Appendix B: Repository Folder Structure</h4>
+
+<p>The repository was intended to be a working structure to compartmentalize the locations of assets created or used for this project.</p>
+<p>The following the repository folder structure and what purpose it was to hold.</p>
+<table>
+<tbody>
+<tr>
+<td width="180">
+<p><strong>Folder Name</strong></p>
+</td>
+<td width="396">
+<p><strong>Purpose</strong></p>
+</td>
+</tr>
+<tr>
+<td width="180">
+<p><strong>0_Reference</strong></p>
+</td>
+<td width="396">
+<p>Contains non code reference material including possible pictures to be used for report, the Project Proposal, and the ProjectStandards</p>
+</td>
+</tr>
+<tr>
+<td width="180">
+<p><strong>1_Input</strong></p>
+</td>
+<td width="396">
+<p>Any datafiles that were downloaded from a website data source</p>
+</td>
+</tr>
+<tr>
+<td width="180">
+<p><strong>1_Extracted_inputs</strong></p>
+</td>
+<td width="396">
+<p>Any data files the are the product of python script to be used as data input in another python script</p>
+</td>
+</tr>
+<tr>
+<td width="180">
+<p><strong>2_InterimCode</strong></p>
+</td>
+<td width="396">
+<p>Working area to keep python files in progress</p>
+</td>
+</tr>
+<tr>
+<td width="180">
+<p><strong>3_Output</strong></p>
+</td>
+<td width="396">
+<p>Any images created by our python script</p>
+</td>
+</tr>
+<tr>
+<td width="180">
+<p><strong>4_DB</strong></p>
+</td>
+<td width="396">
+<p>All pertinent website files</p>
+</td>
+</tr>
+<tr>
+<td width="180">
+<p><strong>5_InterimReport</strong></p>
+</td>
+<td width="396">
+<p>Working area to keep the report as it in progress</p>
+</td>
+</tr>
+<tr>
+<td width="180">
+<p><strong>6_FinalCode</strong></p>
+</td>
+<td width="396">
+<p>After all code is complete, this will be the location of all the python scripts</p>
+</td>
+</tr>
+<tr>
+<td width="180">
+<p><strong>7_FinalReport</strong></p>
+</td>
+<td width="396">
+<p>The final report to be submitted</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+	<div class="footer">
+		<p>The Canadian Landscape For Data Science Careers by Sara, Laurel, Jose, and Jesse</p>
+	</div>
+
+
+</body>
+</html>

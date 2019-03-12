@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ETL</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="../script/script.js"></script>
+</head>
+<body>
+
+	<!-- this nav is built with bootstrap -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-menu-color" style="text-align: center;">
+	    <div class="theTitle"><a href="index.html">ETL</a></div>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+	        <ul class="navbar-nav">
+	        	<li class="nav-item">
+	            	<a class="nav-link" href="proposal.html">Proposal</a>
+	            </li>
+	            <li class="nav-item">
+	            	<a class="nav-link" href="report.html">Report</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="plots.html">Plots</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="data.html">Data</a>
+	            </li>   
+	        </ul>
+	    </div>
+	</nav>
+	
+	<div class="container"> <!-- put all content inside of here -->
+		
+	<div class="pageTitle home">
+		<h2>The Canadian Landscape For Data Science Careers
+</h2>
+	</div>
+
+<!-- Flickity HTML init -->
+<div class="carousel" data-flickity='{ "autoPlay": true }'>
+<div class="carousel-cell">
+  	<a href="proposal.html"><img src="../images/proposal.jpg" alt="" style="width:100%"></a>
+  </div>
+  <div class="carousel-cell">
+  	<a href="findings.html"><img src="../images/report.jpg" alt="" style="width:100%"></a>
+  </div>
+  <div class="carousel-cell">
+  	<a href="plots.html"><img src="../images/plots.jpg" alt="" style="width:100%"></a>
+  </div>
+  <div class="carousel-cell">
+  	<a href="data.html"><img src="../images/data.jpg" alt="" style="width:100%"></a>
+  </div>
+</div>
+<style>
+/* external css: flickity.css */
+
+* { box-sizing: border-box; }
+
+body { font-family: sans-serif; }
+
+.carousel {
+  /*background: #EEE;*/
+}
+
+.carousel-cell {
+  width: 80%;
+  height: 400px;
+  margin-right: 10px;
+  border-radius: 5px;
+  counter-increment: gallery-cell;
+}
+
+/* cell number */
+.carousel-cell:before {
+  display: block;
+  text-align: center;
+  /*content: counter(gallery-cell);
+  line-height: 200px;
+  font-size: 80px;
+  color: white;*/
+}
+@media(max-width: 1100px){
+	.carousel-cell{
+		height:325px;
+	}
+}
+@media(max-width: 992px){
+	.carousel-cell{
+		height:250px;
+	}
+}
+@media(max-width: 767px){
+	.carousel-cell{
+		height:200px;
+	}
+}
+@media(max-width: 500px){
+	.carousel{
+		display: none;
+	}
+}
+</style>
+
+	
+	<div class="homeContent">
+		<div class="quote">
+			<p><i><b>“Choose a job you love, and you will never have to work a day in your life.”</b></i><br>- Confucius</p>
+		</div>
+		<h4>Introduction</h4>
+		<p>Title of Article from Harvard Business Review:  “Data Scientist:  The Sexiest Job of the 21st Century." These are the types slogans and buzz that are bombarding social and business media.  This project seeks to uncover the Canadian landscape for those who are seeking careers in this emerging high tech area.  By analyzing data jobs being offered in websites like Indeed.com, and correlating them to the population and quality of life data where they are being offered, this project hopes to illuminate where the best opportunities and earning power can be found in Canada.</p>
+
+		<h4>Purpose</h4>
+		<p>The purpose of this project was to explore the landscape of Data jobs across Canada, while using the concept of "'Extract', 'Transform', and 'Load'" in a practical application. Group 6 hoped to further understand where Data Analyst, Data Engineer, and Data Scientist positions are availabe in Canada, the salaries associated with each job, and the cost of living (depending on location) associated to each opportunity.</p>
+
+		<h4>Approach</h4>
+		<p>To apply ETL, Group 6 chose to use Python to extract data from websites and APIs, Pandas to mung and clean the data gathered, and MySQL to store the data to complete the process of Extracting, Transforming, and Loading.</p>
+		
+	</div>
+
+
+
+	</div> <!-- the end of the container div -->
+	<div class="footer">
+		<p>The Canadian Landscape For Data Science Careers by Sara, Laurel, Jose, and Jesse</p>
+	</div>
+</body>
+</html>
