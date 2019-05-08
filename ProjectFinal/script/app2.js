@@ -54,9 +54,17 @@ function display(Year) {
     var grade = [];
     var suicideRates = [];
 
+    if (Year < 2014) {
+        var gun_law_year = 2014;
+    } else if ( Year > 2017) {
+        var gun_law_year = 2017;
+    } else {
+        var gun_law_year = Year;
+    }
+
     d3.csv("../data/gun_law_grade.csv", function (data) {
         data.forEach(function(d) {
-            if (d.year == Year) {
+            if (d.year == gun_law_year) {
                 grade.push(d);
         }
 
@@ -143,7 +151,7 @@ function display(Year) {
                     .style("left", d3.event.pageX + "px")
                     .style("top", d3.event.pageY + "px")						
                     .select("#value")
-                    .html('<b>State:</b> ' + state + '<br/><b>Gun Law Grade:</b> ' + stateGrade);
+                    .html('<b>Year of Gun Law Grade:</b> ' + gun_law_year + '<br><b>State:</b> ' + state + '<br/><b>Gun Law Grade:</b> ' + stateGrade);
 
                     //Show the tooltip
                 d3.select("#tooltip").classed("hidden", false);
@@ -169,8 +177,8 @@ function display(Year) {
                 // return projection(+d.lat);
             })
             .attr("r", function(d) {
-                //return Math.sqrt(parseInt(Math.log(d.RATE+1)*50));
-                return d.RATE;
+                return Math.sqrt(d.RATE)*3;
+                //return d.RATE;
             })
             .style("fill", "red")
         

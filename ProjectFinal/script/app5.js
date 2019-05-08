@@ -52,7 +52,7 @@ d3.select("#slider").on('change', function(d) {
 function display(Year) {
 
     var grade = [];
-    var massShootingLoc = [];
+    var hateCrimeRates = [];
 
     if (Year < 2014) {
         var gun_law_year = 2014;
@@ -82,17 +82,15 @@ function display(Year) {
     console.log("*** The following is the gun grade data");
     console.log(grade);
 
-    d3.csv("../data/mass_shootings_full.csv", function(massShootingAll) {
+    d3.csv("../data/hate_crimes.csv", function(hateCrimesAll) {
         console.log(Year);
-        massShootingAll.forEach(function(d) {
+        hateCrimesAll.forEach(function(d) {
             if (d.year == Year) {
-                massShootingLoc.push(d);
+                hateCrimeRates.push(d);
             }
         });
     });
 
-    console.log("*** The following is the resulting firearm death rates");
-    console.log(massShootingLoc);
 
     //Code copied from Mike Bostock's Chater 12 choropleth.js
     //Load in GeoJSON data & merge with gun laws grade
@@ -146,7 +144,7 @@ function display(Year) {
                 var stateGrade = Math.round((d.properties.value) * 100) / 100;
                 var state = d.properties.name;
                 var stateGrade = d.properties.grade;
-
+                
                 //Update the tooltip position and value
                 d3.select("#tooltip")
                     .style("left", d3.event.pageX + "px")
@@ -161,26 +159,28 @@ function display(Year) {
             .on("mouseout", function() {
                 //Hide the tooltip
                 d3.select("#tooltip").classed("hidden", true);
-            });            
-                
+            });
+            
         svg.selectAll(".dot")
-            .data(massShootingLoc)
+            .data(hateCrimeRates)
             .enter()
             .append("circle")
             .attr("class", "dot")
             .attr("cx", function(d) {
-                console.log(d.location, d.state, d.lat, d.lon, d.year, d.total);
+                console.log(d.state, d.lat, d.lon, d.year, d.number_of_incidences, d.incidences_per_100K);
                 return projection([d.lon, d.lat])[0];
-                // return projection(+d.lon);
             })
+
             .attr("cy", function(d) {
                 return projection([d.lon, d.lat])[1];
                 // return projection(+d.lat);
             })
+
             .attr("r", function(d) {
-                return Math.sqrt(d.total)*3;
-                //return (d.total * 0.3);
+                return Math.sqrt(d.incidences_per_100K)*4;
+                //return d.RATE;
             })
+
             .style("fill", "red")
         
             // Code modified from Mike Bostock's Chapter 12 example scripts
@@ -190,8 +190,7 @@ function display(Year) {
                     .style("left", d3.event.pageX + "px")
                     .style("top", d3.event.pageY + "px")						
                     .select("#value")
-                    .html('<b>Place:</b> ' + d.location + '<br/><b>State:</b> ' + d.state +'<br/><b>Deaths:</b> ' + d.dead + 
-                        '<br/><b>Injured:</b> ' + d.injured +  '<br/><b>Total:</b> ' + d.total);
+                    .html('<b>State:</b> ' + d.state + '<br/><b># of Hate Crimes:</b> ' + d.number_of_incidences + '<br/><b>Hate Crime Rate:</b> ' + d.incidences_per_100K + ' per 100,000');
 
                 //Show the tooltip
                 d3.select("#tooltip").classed("hidden", false);
@@ -201,6 +200,8 @@ function display(Year) {
                 //Hide the tooltip
                 d3.select("#tooltip").classed("hidden", true);
             });
+            
         });
     });
+
 }

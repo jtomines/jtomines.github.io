@@ -57,19 +57,19 @@
 	<div class="container"> <!-- put all content inside of here -->
 		
 		<div class="pageTitle home">
-			<h2>Do Less Hate Crime Occur In States Where Gun Laws Are Strong?</h2>
+			<h2>Do More Hate Crime Occur In States Where Gun Laws Are Weak?</h2>
 		</div>
 
 		<div class="mapContent">
 			<div id="tooltip" class="hidden">        
 			<p><span id="value">100</span></p></div>
 
-			<script src="../script/app4.js"></script>
+			<script src="../script/app5.js"></script>
 			<script src="../script/key1.js"></script>
 			<div id="control">
 				<label><strong>Data shown for&nbsp;</label><label id="year" name="year">2000</strong></label>:
 				<form>
-						<input id="slider" type="range" name="slider" min="0" max="18" value="0" step="1"/>
+						<input id="slider" type="range" name="slider" min="0" max="17" value="0" step="1"/>
 				</form>
 			</div>
 			<script src="../script/slider4.js"></script>
@@ -83,7 +83,8 @@
 				evaluating the strength of the gun control laws for each state.  
 				The letter grade assigned to each state was converted to a percentage, where an A+ received 98%, and F received 50%.  
 				The shading of each state on the map of the US represents those grades.  Darker shades represent stronger gun laws 
-				for the selected year.
+				for the selected year.  <strong>NOTE:</strong>  For years prior to 2014 selected using the slider, the map will display the gun law grades of 
+				<strong> year 2014</strong>.  If the slider is used to select year 2018, the map will display the gun law grades of <strong> year 2017</strong>.
 			</p>
 			<p>The FBI keeps statistics on hate crimes.  The data used is only for the year 2017. Each geocentric doc represents the amount of hate crimes for that state.  
 				Unfortunately hate crimes data hasn't been attached to this graph.
@@ -91,6 +92,8 @@
 			<p>Because this data isn't normalized to population size, it is obvious that strong gun laws alone will prevent mass shootings. 
 				Normalized data in the summary plots show a clearer picture..
 			</p>
+		</div>	
+	</div> <!-- the end of the container div -->
 	
 	<div class="footer">
 		<p>Death American Style:  Guns & Hate - by Jose Tomines</p>

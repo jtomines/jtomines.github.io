@@ -52,11 +52,18 @@ d3.select("#slider").on('change', function(d) {
 function display(Year) {
 
     var grade = [];
-    var hateGroups = [];
+
+    if (Year < 2014) {
+        var gun_law_year = 2014;
+    } else if ( Year > 2017) {
+        var gun_law_year = 2017;
+    } else {
+        var gun_law_year = Year;
+    }
 
     d3.csv("../data/gun_law_grade.csv", function (data) {
         data.forEach(function(d) {
-            if (d.year == Year) {
+            if (d.year == gun_law_year) {
                 grade.push(d);
         }
 
@@ -73,18 +80,6 @@ function display(Year) {
 
     console.log("*** The following is the gun grade data");
     console.log(grade);
-
-    d3.csv("../data/hate_groups.csv", function(hateGroupsAll) {
-        console.log(Year);
-        hateGroupsAll.forEach(function(d) {
-            if (d.year == Year) {
-                hateGroups.push(d);
-            }
-        });
-    });
-
-    console.log("*** The following is the resulting hate group data");
-    console.log(hateGroups);
 
     //Code copied from Mike Bostock's Chater 12 choropleth.js
     //Load in GeoJSON data & merge with gun laws grade
@@ -138,51 +133,13 @@ function display(Year) {
                 var stateGrade = Math.round((d.properties.value) * 100) / 100;
                 var state = d.properties.name;
                 var stateGrade = d.properties.grade;
-                    //Update the tooltip position and value
-                d3.select("#tooltip")
-                    .style("left", d3.event.pageX + "px")
-                    .style("top", d3.event.pageY + "px")						
-                    .select("#value")
-                    .html('<b>State:</b> ' + state + '<br/><b>Gun Law Grade:</b> ' + stateGrade);
-
-                    //Show the tooltip
-                d3.select("#tooltip").classed("hidden", false);
-            })
-
-            .on("mouseout", function() {
-                //Hide the tooltip
-                d3.select("#tooltip").classed("hidden", true);
-            });
-            
-        console.log(hateGroups);
                 
-        svg.selectAll(".dot")
-            .data(hateGroups)
-            .enter()
-            .append("circle")
-            .attr("class", "dot")
-            .attr("cx", function(d) {
-                console.log(d.city, d.state_name, d.lat, d.lon, d.year, d.title);
-                console.log(d.lon, d.lat);
-                return projection([d.lon, d.lat])[0];
-                console.log(d.lng, d.lat);
-                // return projection(+d.lon);
-            })
-            .attr("cy", function(d) {
-                return projection([d.lon, d.lat])[1];
-                // return projection(+d.lat);
-            })
-            .attr("r", 10)
-            .style("fill", "red")
-        
-            // Code modified from Mike Bostock's Chapter 12 example scripts
-            .on("mouseover", function(d) {
-                // Update the tooltip position and value
+                //Update the tooltip position and value
                 d3.select("#tooltip")
                     .style("left", d3.event.pageX + "px")
                     .style("top", d3.event.pageY + "px")						
                     .select("#value")
-                    .html('<b>Place:</b> ' + d.city + '<br/><b>State:</b> ' + d.state_name +'<br/><b>Group:</b> ' + d.title);
+                    .html('<b>Year of Gun Law Grade:</b> ' + gun_law_year + '<br><b>State:</b> ' + state + '<br/><b>Gun Law Grade:</b> ' + stateGrade);
 
                 //Show the tooltip
                 d3.select("#tooltip").classed("hidden", false);
@@ -192,6 +149,52 @@ function display(Year) {
                 //Hide the tooltip
                 d3.select("#tooltip").classed("hidden", true);
             });
+            
+        // load hate groups data
+        d3.csv("../data/hate_groups_" + Year + ".csv", function(hateGroups) {
+            console.log(Year);
+            console.log(hateGroups);
+            
+            svg.selectAll(".dot")
+                .data(hateGroups)
+                .enter()
+                .append("circle")
+                .attr("class", "dot")
+                .attr("cx", function(d) {
+                    console.log(d.city, d.state_name, d.lat, d.lon, d.year, d.title, d.ideology);
+                    console.log(d.lon, d.lat);
+                    return projection([d.lon, d.lat])[0];
+                    console.log(d.lng, d.lat);
+                    // return projection(+d.lon);
+                })
+
+                .attr("cy", function(d) {
+                    return projection([d.lon, d.lat])[1];
+                    // return projection(+d.lat);
+                })
+
+                .attr("r", 4)
+                .style("fill", "red")
+            
+                // Code modified from Mike Bostock's Chapter 12 example scripts
+                .on("mouseover", function(d) {
+                    // Update the tooltip position and value
+                    d3.select("#tooltip")
+                        .style("left", d3.event.pageX + "px")
+                        .style("top", d3.event.pageY + "px")						
+                        .select("#value")
+                        .html('<b>Place:</b> ' + d.city + '<br/><b>State:</b> ' + d.state_name + '<br/><b>Group:</b> ' + d.title + '<br/><b>Ideology:</b> ' + d.ideology);
+
+                    //Show the tooltip
+                    d3.select("#tooltip").classed("hidden", false);
+                })
+
+                .on("mouseout", function() {
+                    //Hide the tooltip
+                    d3.select("#tooltip").classed("hidden", true);
+                });
+            
         });
     });
+});
 }
