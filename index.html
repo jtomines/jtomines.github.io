@@ -1,94 +1,167 @@
-<!--# Student Bio Page
-
-## Instructions
-
-* On your own, create a simple bio page for yourself using the following HTML elements...
-
-  * A header that will store your name inside of it
-  * An image that will act as a stand-in for your picture with an `alt` attribute which gives a very basic description of the image
-  * Two paragraphs that will have text describing who you are
-  * An unordered list of links that connect to your social media pages
-  * A table that will contain three columns and some data on your favorite movies, songs, books, or activities
-
-## Hints
-
-* Dummy images can be found at [lorempixel.com](http://lorempixel.com/) and dummy text can be found at [lipsum.com](http://www.lipsum.com/). Focus on getting the entire page working before diving into more specific text and images.
-
-## Bonus
-
-* Look into how one might go about linking one custom-made HTML page to another. Once you have found out how, try creating a link from your bio page you have just created to one of the pages you created last class.-->>
+<!-- UofT SCS Data Analytics Boot Camp
+	Final Project - Poxy_Server
+  Author:           	Jose Tomines
+  Purpose:          	This page is a visualization of Gun Law Grades in relation to gun deaths, suicides, mass shootings, and hate groups in the US
+	Web/HTML Source:  	 
+											
+  Data Source:      	
+ -->
 
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Jose Tomines' Page</title>
+	<meta charset="UTF-8">
+	<title>Death American Style</title>
+	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="../script/script.js"></script>
 </head>
-
 <body>
-    <h1>Jose Tomines' Page</h1>
-    <h2>Where Apathy Meets Boredom</h2>
-    <br>
-    Flotsam in the river of life.... Whipped Husband, Dragon-Father, 2-Sport Coach, Ex-Enterprise Consultant, Data Oldie & Newbie Anal-Lyst
-    <br>
-    Bred in Cooksville (Mississauga), I remember a great childhood of running through forests, fields, and orchards, and swimming in the creeks.  From public school to catholic school, from oblivious to bright.  Placed extremely well in Waterloo Mathematics Competitions, got into McMaster University Special Arts & Science Programme, only to discover alcohol!  ... Reset... Double major in Biology & Chemistry in UofT.... CRASH... NEW DAD!  Stop School, and started work with City of Toronto.  They discovered I had computer skills.
- <br>
-  <a href="#"> Link to nowhere... like my ambition...</a>
 
-  <figure>
-      <img src="../jtomines.github.io/masquerade.jpg"
-           alt = "Family at Masquerade Party"
-           height="500">
-    </a>    
-    <figcaption>The Family</figcaption>
-</figure>
+	<!-- this nav is built with bootstrap -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-menu-color" style="text-align: center;">
+	    <div class="theTitle"><a href="index.html">Death American Style</a></div>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+	        <ul class="navbar-nav">
+						<li class="nav-item dropdown active">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">GUNS</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="text-align: center;">
+								<a class="dropdown-item" href="html/gun_deaths.html">Gun Deaths</a>
+								<a class="dropdown-item" href="html/suicides.html">Suicides</a>
+								<a class="dropdown-item" href="html/mass_shootings.html">Mass Shootings</a>
+							</div>
+						</li>
 
-<br>
-<ul>
-  <li><a href="https://www.facebook.com/jose.tomines"> Facebook Page</a></li>
-  <li><a href="https://www.youtube.com/channel/UCpCWvDDoumrtOUsV9p2A0Qg" target="_blank" > Visit my kid brother's channel - The TOE BRO in a new tab</a></li>
-  <li><a href="https://www.youtube.com/watch?v=03g0RUS184E">Visit my youtube video</a></li>
-</ul>
-<br>
+						<li class="nav-item dropdown active">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HATE</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="text-align: center;">
+								<a class="dropdown-item" href="html/hate_groups.html">Hate Groups</a>
+								<a class="dropdown-item" href="html/hate_crimes.html">Hate Crimes</a>
+							</div>
+						</li>
 
-<iframe width="854" height="480" src="https://www.youtube.com/embed/QXo3bsPCLxI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	          <li class="nav-item">
+	            <a class="nav-link" href="html/summary.html">Summary</a>
+						</li>
+						
+	          <li class="nav-item">
+	              <a class="nav-link" href="html/about.html">About</a>
+	          </li>   
+	        </ul>
+	    </div>
+	</nav>
+	
+	<div class="container"> <!-- put all content inside of here -->
+		
+	<div class="pageTitle home">
+		<h2>Death American Style:  Guns & Hate</h2>
+	</div>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th colspan="3"
-                style="background-color: #EAECEE">
-                <b><center>Interesting Things</center></b></th>
-        </tr>
-        <tr>
-            <th><b>Books</b></th>
-            <th><b>Films</b></th>
-            <th><b>Games</b></th>
-        </tr>
-    </thead>
+<!-- Flickity HTML init -->
+<div class="carousel" data-flickity='{ "autoPlay": true }'>
+<div class="carousel-cell">
+  	<a href="html/gun_deaths.html"><img src="images/PointedGun.jpg" alt="" style="width:100%"></a>
+  </div>
+  <div class="carousel-cell">
+  	<a href="html/suicides.html"><img src="images/Suicide.jpg" alt="" style="width:100%"></a>
+  </div>
+  <div class="carousel-cell">
+  	<a href="html/mass_shootings.html"><img src="images/Bullets.jpg" alt="" style="width:100%"></a>
+  </div>
+  <div class="carousel-cell">
+  	<a href="html/hate_groups.html"><img src="images/HateGroups.jpg" alt="" style="width:100%"></a>
+  </div>
+  <div class="carousel-cell">
+  	<a href="html/hate_crimes.html"><img src="images/Hate.jpg" alt="" style="width:100%"></a>
+  </div>
+</div>
 
-    <tbody>
-        <tr>
-            <td>Dune Series</td>
-            <td>Irreversible</td>
-            <td>AD&D</td>
-        </tr>
-        <tr>
-            <td>Thomas Covenant Series</td>
-            <td>Blade Runner</td>
-            <td>Murder Mystery Parties</td>
-        </tr>
-        <tr>
-            <td>Michael Slade books</td>
-            <td>The Princess Bride</td>
-            <td>Chess</td>
-        </tr>
-        <tr>
-            <td>Foundations Trilogy</td>
-            <td>Marvel Cinematic University</td>
-            <td>Catan</td>
-        </tr>
+<style>
+/* external css: flickity.css */
 
+* { box-sizing: border-box; }
+
+body { font-family: sans-serif; }
+
+.carousel {
+  /*background: #EEE;*/
+}
+
+.carousel-cell {
+  width: 80%;
+  height: 400px;
+  margin-right: 10px;
+  border-radius: 5px;
+  counter-increment: gallery-cell;
+}
+
+/* cell number */
+.carousel-cell:before {
+  display: block;
+  text-align: center;
+  /*content: counter(gallery-cell);
+  line-height: 200px;
+  font-size: 80px;
+  color: white;*/
+}
+/*@media(max-width: 1100px){
+	.carousel-cell{
+		height:325px;
+	}
+}
+@media(max-width: 992px){
+	.carousel-cell{
+		height:250px;
+	}
+}
+@media(max-width: 767px){
+	.carousel-cell{
+		height:200px;
+	}
+}
+@media(max-width: 500px){
+	.carousel{
+		display: none;
+	}
+} */
+
+</style>
+
+	
+	<div class="homeContent">
+		<div class="quote">
+			<p><i><b>“Thoughts and prayers won't stop a speeding bullet.”</b></i><br>- DaShanne Stokes</p>
+		</div>
+		<h4>Introduction</h4>
+		<p><b>Time Magazine:  “Guns in America"</b><br>
+		<i>325 million people. More than 265 million guns. 35,000 deaths a year. And one 227-year-old constitutional right.</i><br></p>
+
+		<p>The era of Trump will be remembered for the extreme polarization of America.  With the constant fear of crime, 
+		gun deaths, and mass shootings, hostilities are at an all time high between those who want stronger gun legislation 
+		and those who believe their personal safety is based on their right to bear arms.  Encouraged by the climate of 
+		fear mongering and nationalism by this administration, hate groups are emerging from the shadows and sowing further 
+		discord in America.  The emotional power of Hate and the physical power of the gun are the two horns that threaten America!</p>
+		<h4>Purpose</h4>
+		<p>The purpose of this project was to provide interactive visualization of these polarizing issues.  
+		Are the varying gun laws effective at countering gun violence?  Are hate groups embolden by the lack of gun laws 
+		they operate under?  This analysis hopes to show how guns, laws, and hate are intertwined.</p>
+	</div>
+
+
+
+	</div> <!-- the end of the container div -->
+	<div class="footer">
+		<p>Death American Style:  Guns & Hate - by Jose Tomines</p>
+	</div>
 </body>
-
 </html>

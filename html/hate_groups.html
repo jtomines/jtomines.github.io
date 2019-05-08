@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Death American Style</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+	<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<!--	<script src="../script/script.js"></script> -->
+	<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+	<!-- this nav is built with bootstrap -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-menu-color" style="text-align: center;">
+	    <div class="theTitle"><a href="../index.html">Death American Style</a></div>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+	        <ul class="navbar-nav">
+						<li class="nav-item dropdown active">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">GUNS</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1" style="text-align: center;">
+								<a class="dropdown-item" href="../html/gun_deaths.html">Gun Deaths</a>
+								<a class="dropdown-item" href="../html/suicides.html">Suicides</a>
+								<a class="dropdown-item" href="../html/mass_shootings.html">Mass Shootings</a>
+							</div>
+						</li>
+
+						<li class="nav-item dropdown active">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HATE</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="text-align: center;">
+								<a class="dropdown-item" href="../html/hate_groups.html">Hate Groups</a>
+								<a class="dropdown-item" href="../html/hate_crimes.html">Hate Crimes</a>
+							</div>
+						</li>
+
+	          <li class="nav-item">
+	            <a class="nav-link" href="../html/summary.html">Summary</a>
+						</li>
+						
+	          <li class="nav-item">
+	              <a class="nav-link" href="../html/about.html">About</a>
+	          </li>   
+	        </ul>
+	    </div>
+	</nav>
+	
+	<div class="container"> <!-- put all content inside of here -->
+		
+		<div class="pageTitle home">
+			<h2>Do Hate Groups Thrive Where Gun Laws Are Strong?</h2>
+		</div>
+
+		<div class="mapContent">
+			<div id="tooltip" class="hidden">        
+			<p><span id="value">100</span></p></div>
+
+			<script src="../script/app4.js"></script>
+			<script src="../script/key1.js"></script>
+			<div id="control">
+				<label><strong>Data shown for&nbsp;</label><label id="year" name="year">2000</strong></label>:
+				<form>
+						<input id="slider" type="range" name="slider" min="0" max="18" value="0" step="1"/>
+				</form>
+			</div>
+			<script src="../script/slider4.js"></script>
+		</div>
+	</div> <!-- the end of the container div -->
+
+	<div class="container">
+		<div class="contentNote">
+			<h4>Grading of State Gun Control Laws vs Hate Group Locations</h4>
+			<p>Each year since 2014, the Gifford Law Center, an advocate for proper gun control, releases a score card 
+				evaluating the strength of the gun control laws for each state.  
+				The letter grade assigned to each state was converted to a percentage, where an A+ received 98%, and F received 50%.  
+				The shading of each state on the map of the US represents those grades.  Darker shades represent stronger gun laws 
+				for the selected year.  <strong>NOTE:</strong>  For years prior to 2014 selected using the slider, the map will display the gun law grades of 
+				<strong> year 2014</strong>.  If the slider is used to select year 2018, the map will display the gun law grades of <strong> year 2017</strong>.
+			</p>
+			<p>The Southern Poverty Law Center has collected a list of hate groups that are operating in the United States. Each dot represents the location of a hate group.  
+				Data goes back to the year 2000.  Unfortunately the early data sets cannot be compared with the grades of state gun laws unti 2014.
+			</p>
+			<p>Because this data isn't normalized to population size, it is not obvious that strong gun laws alone will prevent mass shootings. 
+				Normalized data in the summary plots show a clearer picture..
+			</p>
+		</div>	
+	</div> <!-- the end of the container div -->
+	
+	<div class="footer">
+		<p>Death American Style:  Guns & Hate - by Jose Tomines</p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Death American Style</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="../script/script.js"></script>
+</head>
+<body>
+
+	<!-- this nav is built with bootstrap -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-menu-color" style="text-align: center;">
+	    <div class="theTitle"><a href="../index.html">Death American Style</a></div>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+	        <ul class="navbar-nav">
+						<li class="nav-item dropdown active">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">GUNS</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1" style="text-align: center;">
+								<a class="dropdown-item" href="../html/gun_deaths.html">Gun Deaths</a>
+								<a class="dropdown-item" href="../html/suicides.html">Suicides</a>
+								<a class="dropdown-item" href="../html/mass_shootings.html">Mass Shootings</a>
+							</div>
+						</li>
+
+						<li class="nav-item dropdown active">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HATE</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="text-align: center;">
+								<a class="dropdown-item" href="../html/hate_groups.html">Hate Groups</a>
+								<a class="dropdown-item" href="../html/hate_crimes.html">Hate Crimes</a>
+							</div>
+						</li>
+
+	          <li class="nav-item">
+	            <a class="nav-link" href="../html/summary.html">Summary</a>
+						</li>
+						
+	          <li class="nav-item">
+	              <a class="nav-link" href="../html/about.html">About</a>
+	          </li>   
+	        </ul>
+	    </div>
+	</nav>
+	
+	<div class="container"> <!-- put all content inside of here -->
+		
+		<div class="pageTitle home">
+			<h2>About:  The Process of Visualization</h2>
+		</div>
+
+
+
+		<div class="homeContent">
+			<h4>Project Information</h4>
+			<p><strong>Course:</strong>  University of Toronto SCS Data Analytics Boot Camp<br>
+			<strong>Assignment:</strong>  Final Project<br>
+			<strong>Author:</strong>  Jose Tomines<br>
+			<strong>Date:</strong>  2019 April 18</p>
+
+			<p>This final project was meant to demonstrate the student's knowledge and abilities acquired throughout this 
+			course to create something meaningful.  Many possible projects were mulled over, but this one held meaning in 
+			terms of content, and was still deliverable within a reasonable timeframe.</p>
+			<h4>Project Methodology</h4>
+			<p>The following were the tasks performed during this project as set out in the class proposal:</p>
+			<ul>
+					<li>Determine data sources</li>
+					<li>Determine disualization of data</li>
+					<li>Determine framework of website</li>
+					<li>Build data extraction and cleanup scripts</li>
+					<li>Build database</li>
+					<li>Build visualization code</li>
+					<li>Analyze and comment on visualization</li>
+					<li>Assemble website</li>
+			</ul>
+			<h4>Data Sources:</h4>
+			<p>The following were the the data sources used for this project, in no particular order:</p>
+			<a href="https://lawcenter.giffords.org/scorecard/" target="_blank" >Giffords Law Center - To Prevent Gun Violence</a>
+			<br>
+			<a href="https://www.inverse.com/article/37141-state-gun-law-" target="_blank" >Inverse - 7 Maps to Explain U.S. Gun Control Laws, By State </a>
+			<br>
+			<a href="https://www.kqed.org/lowdown/6286/are-states-with-tough-gun-laws-actually-safer" target="_blank" >KQED News - Are States With Tough Gun Laws Actually Safer</a>
+			<br>
+			<a href="https://www.theguardian.com/world/interactive/2013/jan/15/gun-laws-united-states" target="_blank" >Guardian News - Gun Laws in the US</a>
+			<br>
+			<a href="https://www.cdc.gov/nchs/pressroom/sosmap/firearm_mortality/firearm.htm" target="_blank" >The Center for Disease Control - Firearms Mortality</a>
+			<br>
+			<a href="https://ucr.fbi.gov/crime-in-the-u.s/2017/crime-in-the-u.s.-2017/tables/table-4/table-4.xls#overview" target="_blank" > Federal Bureau of Investigation - Crime in the US</a>
+			<br>
+			<a href="https://www.abc15.com/news/data/mass-shootings-in-the-united-states-when-where-they-have-occurred-in-2019" target="_blank" >ABC News - Mass Shootings in the US</a>
+			<br>
+			<a href="https://www.splcenter.org/hate-map)" target="_blank" >Southern Poverty Law Center - Hate Groups Across the US</a>
+			<br>
+			<a href="https://www.motherjones.com/politics/2012/12/mass-shootings-mother-jones-full-data/" target="_blank" >Mother Jones - US Mass Shootings, 1982-2019: Data From Mother Jones' Investigation</a>
+			<br>
+			<br>
+			<h4>Project Execution Notes</h4>
+			<p>The following are comments, notes, and issues encountered during project executions:</p>
+			<ul>
+					<li>Most data sources provided a means to download data as either an excel or csv file.  Where this option was not available, 
+						the data was copied directly from the page and pasted into an excel spreadsheet.</li>
+					<li>All mass shooting data from different sources were brought together in the same spreadsheet, and manually inspected to remove duplicate 
+						incidences.</li>
+					<li>All data sources in excel format were then manipulated using Excel and VBA functionality and then saved as csv files to be used by the 
+						Python scripts.</li>
+					<li>Python scripts using pandas and numpy imported the data from the csv viles, to further clean up and combine the data into dataframe tables 
+						to be used by the visualization scripts.</li>
+					<li>The original plan was to build a SQL database and serve the data with Flask to the front end website.  Unfortunately time constraints led 
+						to the decision to keep the data as csv files and have the javascript files pull the data in from the csv files. Eventually this website 
+						will use an SQL database and Flask engine.</li>
+					<li>The website is html/css using Bootstrap 4.2.1, with javascript using jquery 3.3.1.  The visualization used D3 and heavily modeled after 
+						Mike Bostock's chloropleth code</li>
+					<li>Python with pandas, numpy, and matplotlib, was used to create the static graphs as png files.</li>
+					<li>Chloropleth map projects were not dynamically sized and positioned, leading to placement issues for larger browser windows.  This will be 
+						fixed in the future.</li>
+					<li>Dot projections on chloropleth mapping relies heavily on longitude and latitude.  For state aggregated data, the longitude and latitude of 
+						the geographic center of the state (centroid methodology) was used, as described in <a href="https://en.wikipedia.org/wiki/List_of_geographic_centers_of_the_United_States" 
+						target="_blank" >Wikipedia - List of geographic centers of the United States (Updated list of geographic centers)</a>.</li>
+					<li>Normalization of state aggregated data (per 100K persons or per 1M persons) used population estimates for 2018 in <a href="https://www.census.gov/data/datasets/time-series/demo/popest/2010s-national-total.html" 
+						target="_blank" >United States Census Bureau - National Population Totals and Components of Change: 2010-2018</a>. </li>
+			</ul>
+
+			<h4>Project Documentation</h4>
+			<p>The following documentation was created for this project:</p>
+			<ul>
+					<li>Project Proposal - <a href="../docs/DeathAmericanStyle_ProjectProposal.pdf" target="_blank" >DeathAmericanStyle_ProjectProposal.pdf</a>.</li>
+					<li>Project Methodology - <a href="../docs/DeathAmericanStyle_Methodology.pdf" target="_blank" >DeathAmericanStyle_Methodology.pdf</a>.</li>
+			</ul>
+
+		</div>
+
+	</div> <!-- the end of the container div -->
+	
+	<div class="footer">
+		<p>Death American Style:  Guns & Hate - by Jose Tomines</p>
+	</div>
+</body>
+</html>
